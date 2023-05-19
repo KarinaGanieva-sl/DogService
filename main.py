@@ -173,20 +173,6 @@ def create_appointment(appointment):
         insert_into_appointment_procedure([appointment_id, procedure_id])
 
 
-def check_amount_of_money(customer_id, order, conn):
-    cursor = conn.cursor()
-    price = 0
-    for dish in order:
-        cursor.execute('select price from mytest.dish where id=%s', (dish[0],))
-        price += cursor.fetchone()[0] * dish[1]
-    cursor.execute('select balance from mytest.customer where id=%s', (customer_id,))
-    balance = cursor.fetchone()[0]
-    if price > balance:
-        print('not enough money')
-        return False, 0
-    return True, price
-
-
 if __name__ == '__main__':
     # create_scheme()
     # create_tables()
